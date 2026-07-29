@@ -1,0 +1,459 @@
+/* ==========================================================================
+   styles.css — Botrunner Playground
+   OpenAI / ChatGPT-inspired dark theme
+   ========================================================================== */
+
+/* ---------- Google Font import (Outfit – clean, modern sans-serif) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ---------- CSS Variables ---------- */
+:root {
+    --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Backgrounds */
+    --bg-page:       #0f1117;   /* main page */
+    --bg-sidebar:    #1a1d27;   /* left thread panel */
+    --bg-card:       #161921;   /* card / container surfaces */
+    --bg-card-hover: #1e2230;
+    --bg-input:      #1e2230;
+    --bg-input-focus:#252a3a;
+    --bg-button:     #2d3148;
+    --bg-button-hover:#363b54;
+    --bg-chat-user:  #2563eb;   /* user bubble */
+    --bg-chat-bot:   #1e2230;   /* bot bubble */
+    --bg-pill:       #1a1d27;   /* chat input pill */
+
+    /* Text */
+    --text-primary:  #f0f2f5;
+    --text-secondary:#9ca3af;
+    --text-muted:    #6b7280;
+    --text-accent:   #60a5fa;
+    --text-green:    #34d399;
+    --text-red:      #f87171;
+    --text-warning:  #fbbf24;
+
+    /* Borders */
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-medium: rgba(255,255,255,0.10);
+    --border-focus:  #3b82f6;
+
+    /* Shadows */
+    --shadow-sm:     0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md:     0 4px 12px rgba(0,0,0,0.35);
+    --shadow-lg:     0 8px 24px rgba(0,0,0,0.4);
+
+    /* Radius */
+    --radius-xs:  4px;
+    --radius-sm:  8px;
+    --radius-md:  12px;
+    --radius-lg:  16px;
+    --radius-xl:  20px;
+    --radius-pill:999px;
+
+    /* Accents */
+    --accent-blue:   #3b82f6;
+    --accent-green:  #10b981;
+    --accent-red:    #ef4444;
+}
+
+/* ==========================================================================
+   BASE / RESET
+   ========================================================================== */
+.stApp {
+    font-family: var(--font-main) !important;
+    background-color: var(--bg-page) !important;
+    color: var(--text-primary) !important;
+    min-height: 100vh;
+}
+
+/* Hide default Streamlit header */
+header[data-testid="stHeader"] { display: none !important; }
+
+/* Tighten top padding */
+.main .block-container {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.4rem !important;
+    max-width: 100% !important;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-main) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+h3 { font-size: 1.05rem !important; margin-bottom: 0.4rem !important; }
+h4 { font-size: 0.9rem !important;  margin-bottom: 0.25rem !important; }
+
+p, label, .stCaption {
+    font-family: var(--font-main) !important;
+    color: var(--text-secondary) !important;
+    font-size: 0.82rem !important;
+}
+
+/* ==========================================================================
+   DIVIDERS
+   ========================================================================== */
+hr {
+    border: none !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    margin: 0.7rem 0 !important;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.stButton > button {
+    font-family: var(--font-main) !important;
+    background: var(--bg-button) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.1s;
+    box-shadow: var(--shadow-sm);
+}
+.stButton > button:hover {
+    background: var(--bg-button-hover) !important;
+    border-color: var(--border-medium) !important;
+    transform: translateY(-1px);
+}
+.stButton > button:active { transform: translateY(0); }
+
+/* Primary button */
+.stButton > button[kind="primary"] {
+    background: var(--accent-blue) !important;
+    border-color: var(--accent-blue) !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+.stButton > button[kind="primary"]:hover {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+}
+
+/* Small utility buttons (delete, trash icons) */
+.stButton > button.btn-sm {
+    padding: 0.2rem 0.45rem !important;
+    font-size: 0.72rem !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+/* ==========================================================================
+   TEXT INPUTS & TEXTAREAS
+   ========================================================================== */
+div[data-testid="stTextInput"] input,
+div[data-testid="stTextArea"] textarea {
+    font-family: var(--font-main) !important;
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.8rem !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+div[data-testid="stTextInput"] input:focus,
+div[data-testid="stTextArea"] textarea:focus {
+    border-color: var(--border-focus) !important;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.18) !important;
+    background: var(--bg-input-focus) !important;
+    outline: none !important;
+}
+div[data-testid="stTextInput"] input::placeholder,
+div[data-testid="stTextArea"] textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* ==========================================================================
+   CHAT INPUT PILL  (bottom bar)
+   ========================================================================== */
+div[data-testid="stChatInput"] {
+    background: var(--bg-pill) !important;
+    border: 1px solid var(--border-medium) !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-md);
+    padding: 0.35rem 0.5rem !important;
+}
+div[data-testid="stChatInput"] textarea {
+    font-family: var(--font-main) !important;
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    border: none !important;
+    font-size: 0.84rem !important;
+    resize: none !important;
+}
+div[data-testid="stChatInput"] textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+/* Send button inside chat input */
+div[data-testid="stChatInput"] button {
+    background: var(--accent-blue) !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    color: #fff !important;
+    transition: background 0.18s;
+}
+div[data-testid="stChatInput"] button:hover {
+    background: #2563eb !important;
+}
+
+/* ==========================================================================
+   CHAT MESSAGES
+   ========================================================================== */
+div[data-testid="stChatMessage"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0.55rem 0.6rem !important;
+    margin-bottom: 0.15rem;
+    animation: fadeSlideIn 0.22s ease;
+}
+
+/* Bot messages get a subtle card background */
+div[data-testid="stChatMessage"][data-testid="stChatMessage"] {
+    /* Handled via avatar-based selectors below */
+}
+
+/* Message text */
+div[data-testid="stChatMessage"] p {
+    color: var(--text-primary) !important;
+    font-size: 0.82rem !important;
+    line-height: 1.55;
+    margin: 0.15rem 0 !important;
+}
+
+/* Avatar circle */
+.stChatMessage--avatar, [data-testid="stChatMessage"] img {
+    border-radius: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   SCROLLABLE CONTAINERS
+   ========================================================================== */
+div[data-testid="stContainer"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-sm);
+    /* override any inherited glass styles */
+    backdrop-filter: none !important;
+}
+
+/* Custom scrollbar for containers */
+div[data-testid="stContainer"]::-webkit-scrollbar { width: 5px; }
+div[data-testid="stContainer"]::-webkit-scrollbar-track { background: transparent; }
+div[data-testid="stContainer"]::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: var(--radius-pill);
+}
+div[data-testid="stContainer"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+/* ==========================================================================
+   EXPANDERS
+   ========================================================================== */
+div[data-testid="stExpander"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: none !important;
+    margin-bottom: 0.35rem;
+    backdrop-filter: none !important;
+}
+details > summary {
+    color: var(--text-primary) !important;
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    padding: 0.4rem 0.5rem !important;
+}
+details > summary:hover { background: var(--bg-card-hover) !important; }
+
+/* ==========================================================================
+   TABS
+   ========================================================================== */
+div[data-testid="stTabs"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+button[data-baseid="tab"] {
+    font-family: var(--font-main) !important;
+    color: var(--text-muted) !important;
+    font-size: 0.78rem !important;
+    font-weight: 500;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    padding: 0.35rem 0.7rem !important;
+    transition: color 0.2s, border-color 0.2s;
+}
+button[data-baseid="tab"][aria-selected="true"] {
+    color: var(--text-accent) !important;
+    border-bottom-color: var(--accent-blue) !important;
+}
+
+/* ==========================================================================
+   DATA EDITOR (products / probing questions tables)
+   ========================================================================== */
+[data-testid="stDataEditor"] {
+    font-family: var(--font-main) !important;
+    font-size: 0.78rem !important;
+}
+[data-testid="stDataEditor"] div[data-testid="cell-value"] {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    color: var(--text-primary) !important;
+}
+
+/* ==========================================================================
+   STATUS BADGES (inline helpers)
+   ========================================================================== */
+.badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.badge-green  { background: rgba(16,185,129,0.15); color: var(--text-green); }
+.badge-red    { background: rgba(239,68,68,0.15);  color: var(--text-red); }
+.badge-blue   { background: rgba(59,130,246,0.15); color: var(--text-accent); }
+.badge-muted  { background: rgba(255,255,255,0.07); color: var(--text-muted); }
+
+/* ==========================================================================
+   CUSTOM LABEL ROWS  (key: value pairs in inspector)
+   ========================================================================== */
+.kv-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.28rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.76rem;
+}
+.kv-row:last-child { border-bottom: none; }
+.kv-key  { color: var(--text-muted); font-weight: 500; }
+.kv-val  { color: var(--text-primary); font-weight: 500; font-family: 'SF Mono', monospace; font-size: 0.72rem; }
+
+/* ==========================================================================
+   AUTH SCREEN
+   ========================================================================== */
+.auth-wrap   { max-width: 460px; margin: 4rem auto 0; }
+.auth-hero   {
+    border-radius: var(--radius-xl);
+    padding: 2rem 1.8rem 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+.auth-title  { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0.6rem 0 0; }
+.auth-sub    { font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 0; }
+.auth-card   {
+    margin-top: 1rem;
+    border-radius: var(--radius-lg);
+    padding: 1.2rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   FORMS (login / register)
+   ========================================================================== */
+div[data-testid="stForm"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* ==========================================================================
+   DIALOG OVERLAY (persona config)
+   ========================================================================== */
+div[data-testid="stDialog"] {
+    background: #1a1d27 !important;
+    border: 1px solid var(--border-medium) !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: var(--shadow-lg);
+    color: var(--text-primary) !important;
+}
+
+/* ==========================================================================
+   ALERTS / TOAST (st.info, st.success, st.error, st.warning)
+   ========================================================================== */
+div[data-testid="stAlert"] {
+    font-family: var(--font-main) !important;
+    font-size: 0.78rem !important;
+    border-radius: var(--radius-md) !important;
+    border-left-width: 3px !important;
+}
+
+/* ==========================================================================
+   JSON VIEWER
+   ========================================================================== */
+div[data-testid="stJson"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.72rem !important;
+    color: var(--text-secondary) !important;
+}
+
+/* ==========================================================================
+   TOGGLE
+   ========================================================================== */
+input[type="checkbox"][role="switch"] {
+    accent-color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   SELECTBOX / NUMBER INPUT
+   ========================================================================== */
+div[data-testid="stSelectbox"] select,
+div[data-testid="stNumberInput"] input {
+    font-family: var(--font-main) !important;
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.78rem !important;
+}
+
+/* ==========================================================================
+   MISC UTILITIES
+   ========================================================================== */
+.section-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+/* Thin horizontal rule alternative */
+.rule-thin {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0.6rem 0;
+    border: none;
+}
