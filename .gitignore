@@ -22,7 +22,6 @@ ENV/
 node_modules/
 
 # Editor / OS
-.claude/
 .vscode/
 .idea/
 .DS_Store
